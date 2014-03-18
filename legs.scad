@@ -36,17 +36,30 @@ module bend(d1=10,d2=10,r=10,w=5,a=0,h=10)
 module legs(width=2*12, height=1*12, r=2, w=0.5, a=90, h=4){
   d2=height;
   d1=width/2; 
-  union(){
-    translate([d1+r,0,0]) 
+  //union(){
+    translate([d1+r+w/2,0,0]) 
       difference(){
         cube([h,h,w], center = true);
-        mirror([1,0,0]) translate([0.62*h/2, 0.62*h/2,0])  cylinder(r=0.125, h=h+0.5, center=true);
+        translate([0.62*h/2, 0.62*h/2,0])  cylinder(r=0.125, h=w+0.5, center=true);
+        mirror([1,0,0]) translate([0.62*h/2, 0.62*h/2,0])  cylinder(r=0.125, h=w+0.5, center=true);
+        mirror([0,1,0]) translate([0.62*h/2, 0.62*h/2,0])  cylinder(r=0.125, h=w+0.5, center=true);
+        mirror([1,1,0]) translate([0.62*h/2, 0.62*h/2,0])  cylinder(r=0.125, h=w+0.5, center=true);
       };
-    translate([-(d1+r),0,0]) cube([h,h,w], center = true);
-    translate([0,-h/2,0]){
+    translate([-(d1+r+w/2),0,0]) 
+      difference(){
+        cube([h,h,w], center = true);
+        translate([0.62*h/2, 0.62*h/2,0])  cylinder(r=0.125, h=w+0.5, center=true);
+        mirror([1,0,0]) translate([0.62*h/2, 0.62*h/2,0])  cylinder(r=0.125, h=w+0.5, center=true);
+        mirror([0,1,0]) translate([0.62*h/2, 0.62*h/2,0])  cylinder(r=0.125, h=w+0.5, center=true);
+        mirror([1,1,0]) translate([0.62*h/2, 0.62*h/2,0])  cylinder(r=0.125, h=w+0.5, center=true);
+      };
+    translate([0,-h/2,0])
       union(){
-        rotate([-90,0,0]) translate([-d1,d2,0]) color("silver") bend(d1=d1, d2=d2, r=r, w=w, a=a, h=h);
-        mirror([1,0,0]) rotate([-90,0,0]) translate([-d1,d2,0]) color("silver") bend(d1=d1, d2=d2, r=r, w=w, a=a, h=h);
-      };};};
+        rotate([-90,0,0]) translate([-d1,d2,0])  bend(d1=d1, d2=d2, r=r, w=w, a=a, h=h);
+        mirror([1,0,0]) rotate([-90,0,0]) translate([-d1,d2,0]) bend(d1=d1, d2=d2, r=r, w=w, a=a, h=h);
+      };
+    
+
 }
 
+//color("silver")legs();
